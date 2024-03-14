@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/screens/add_task.dart';
 import 'package:todo_app/widgets/task_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,7 +15,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.lightBlueAccent,
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => const AddTaskScreen(),
+          );
+        },
         child: const Icon(
           Icons.add,
           color: Colors.white,
