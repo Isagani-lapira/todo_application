@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/model/task_model.dart';
 import 'package:todo_app/screens/add_task.dart';
 import 'package:todo_app/widgets/task_widget.dart';
 
@@ -10,6 +11,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<TaskData> tasks = [
+    TaskData(taskName: 'I will eat now'),
+    TaskData(taskName: 'Go to gym'),
+    TaskData(taskName: 'read tutorials'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (context) => const AddTaskScreen(),
+            builder: (context) => AddTaskScreen(
+              addTasks: (taskName) {
+                setState(() {
+                  tasks.add(TaskData(taskName: taskName));
+                });
+              },
+            ),
           );
         },
         child: const Icon(
@@ -33,10 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Container(
               padding: const EdgeInsets.all(25.0),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 30.0,
                     child: Icon(
                       Icons.list,
@@ -44,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       size: 30.0,
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Todoey',
                     style: TextStyle(
                       color: Colors.white,
@@ -53,8 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Text(
-                    '2 Tasks',
-                    style: TextStyle(
+                    '${tasks.length} Tasks',
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15.0,
                     ),
@@ -73,7 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                child: const TaskList(),
+                child: TaskList(
+                  tasks: tasks,
+                ),
               ),
             )
           ],

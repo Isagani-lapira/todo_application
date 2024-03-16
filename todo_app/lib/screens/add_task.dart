@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/model/task_model.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({super.key});
+  final Function addTasks;
+  const AddTaskScreen({super.key, required this.addTasks});
 
   @override
   Widget build(BuildContext context) {
+    String taskName = '';
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 25.0),
@@ -22,12 +25,15 @@ class AddTaskScreen extends StatelessWidget {
               'Add Task',
               style: TextStyle(fontSize: 24.0),
             ),
-            const TextField(
+            TextField(
               autofocus: true,
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Enter your task here...',
               ),
+              onChanged: (newText) {
+                taskName = newText;
+              },
             ),
             Container(
               margin: const EdgeInsets.only(top: 10.0),
@@ -37,7 +43,10 @@ class AddTaskScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   backgroundColor: Colors.lightBlueAccent,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  addTasks(taskName);
+                  Navigator.pop(context);
+                },
                 child: const Text(
                   'Add',
                   style: TextStyle(color: Colors.white, fontSize: 18.0),
