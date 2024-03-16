@@ -25,7 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (context) => const AddTaskScreen(),
+            builder: (context) => AddTaskScreen(
+              addTasks: (taskName) {
+                setState(() {
+                  tasks.add(TaskData(taskName: taskName));
+                });
+              },
+            ),
           );
         },
         child: const Icon(
