@@ -22,4 +22,9 @@ class TaskModel extends ChangeNotifier {
     taskData.toggleDone();
     notifyListeners();
   }
+
+  void removeTask(int index) {
+    _tasks.removeAt(index);
+    notifyListeners();
+  }
 }
