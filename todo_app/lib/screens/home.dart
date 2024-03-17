@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/model/task_model.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/model/taskdata.dart';
 import 'package:todo_app/screens/add_task.dart';
 import 'package:todo_app/widgets/task_widget.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  List<TaskData> tasks = [
-    TaskData(taskName: 'I will eat now'),
-    TaskData(taskName: 'Go to gym'),
-    TaskData(taskName: 'read tutorials'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
           showModalBottomSheet(
             context: context,
             builder: (context) => AddTaskScreen(
-              addTasks: (taskName) {
-                setState(() {
-                  tasks.add(TaskData(taskName: taskName));
-                });
-              },
+              addTasks: (taskName) {},
             ),
           );
         },
@@ -66,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Text(
-                    '${tasks.length} Tasks',
+                    '${Provider.of<TaskModel>(context).taskCount} Tasks',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15.0,
@@ -86,9 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                child: TaskList(
-                  tasks: tasks,
-                ),
+                child: const TaskList(),
               ),
             )
           ],

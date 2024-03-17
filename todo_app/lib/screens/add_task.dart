@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/model/task_model.dart';
+import 'package:todo_app/model/taskdata.dart';
 
 class AddTaskScreen extends StatelessWidget {
   final Function addTasks;
@@ -44,8 +46,11 @@ class AddTaskScreen extends StatelessWidget {
                   backgroundColor: Colors.lightBlueAccent,
                 ),
                 onPressed: () {
-                  addTasks(taskName);
-                  Navigator.pop(context);
+                  if (taskName.isNotEmpty) {
+                    Provider.of<TaskModel>(context, listen: false)
+                        .addTask(taskName);
+                    Navigator.pop(context);
+                  }
                 },
                 child: const Text(
                   'Add',
