@@ -17,4 +17,9 @@ class TaskModel extends ChangeNotifier {
     _tasks.add(newTask);
     notifyListeners();
   }
+
+  void updateTask(TaskData taskData) {
+    taskData.toggleDone();
+    notifyListeners();
+  }
 }

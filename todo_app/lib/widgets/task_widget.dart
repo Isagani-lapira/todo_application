@@ -11,10 +11,13 @@ class TaskList extends StatelessWidget {
     return Consumer<TaskModel>(builder: (context, value, child) {
       return ListView.builder(
         itemBuilder: (context, index) {
+          final task = value.tasks[index];
           return TaskTile(
-            taskName: value.tasks[index].taskName,
-            checkState: value.tasks[index].isDone,
-            changeCheckState: (value) {},
+            taskName: task.taskName,
+            checkState: task.isDone,
+            changeCheckState: () {
+              value.updateTask(task);
+            },
           );
         },
         itemCount: value.taskCount,
