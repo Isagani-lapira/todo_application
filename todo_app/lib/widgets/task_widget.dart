@@ -18,6 +18,10 @@ class TaskList extends StatelessWidget {
             changeCheckState: () {
               value.updateTask(task);
             },
+            onTextLongPress: () {
+              print(index);
+              value.removeTask(index);
+            },
           );
         },
         itemCount: value.taskCount,
